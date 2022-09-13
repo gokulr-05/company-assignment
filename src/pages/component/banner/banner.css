@@ -1,0 +1,90 @@
+.background-img {
+  height: 65vh;
+
+  width: 100% !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  z-index: 1;
+}
+
+.banner-mask {
+  height: 100%;
+  width: 100%;
+
+  /* background-color: rgba(0, 0, 0, 0.53); */
+
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 0, 0, 0.367),
+    rgba(0, 0, 255, 0.367)
+  );
+
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.banner-header {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  top: 0px !important;
+  z-index: 20;
+}
+
+.banner-header-2 {
+  padding: 5px 10px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+}
+
+.header-bg {
+  height: 100%;
+  width: 100%;
+  /* optional  */
+  background-color: rgba(0, 0, 0, 0.786);
+}
+
+.pic {
+  height: 100%;
+}
+
+.movie-details {
+  position: relative;
+  transform: translateY(25%);
+  padding-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  z-index: 10;
+}
+
+.banner-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.banner-btn-container > button {
+  transition: 0.3s all;
+  background-color: rgba(0, 0, 0, 0.523);
+  color: white;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.banner-btn-container > button:hover {
+  background-color: white;
+  color: black;
+}

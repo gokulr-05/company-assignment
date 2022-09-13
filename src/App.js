@@ -1,26 +1,34 @@
-import React from "react";
+import { useEffect } from "react";
+import Home from "./pages/Home";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Header from "./component/Header";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min";
-import Home from "./pages/home/Home";
-import Recommendation from "./pages/recommendation/Recommendation";
-import CustomRecommendation from "./pages/CustomRecommendation/CustomRecommendation";
-
+import Header from "./component/header/Header";
+import Recommend from "./pages/recommend/Recommend";
+import Customize from "./pages/customize/Customize";
+import Signup from "./pages/signup/Signup";
+import Login from "./pages/login/Login";
 const App = () => {
-  return (
-    <div>
-      <Header />
-      <h1>App</h1>
+  let fetchFunc = async () => {
+    let response = await fetch(
+      "https://api.themoviedb.org/3/movie/550?api_key=f93445a942bd04c00b774a5d9c724293"
+    );
+    let data = await response.json();
+    // console.log("data=", data);
+  };
 
+  useEffect(() => {
+    fetchFunc();
+  }, []);
+
+  return (
+    <div className="app-area ">
+      <Header />
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/recommendation" element={<Recommendation />} />
-        <Route
-          path="/customrecommendation"
-          element={<CustomRecommendation />}
-        />
+        <Route path="/recommend" element={<Recommend />} />
+        <Route path="/customize" element={<Customize />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

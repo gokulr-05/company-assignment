@@ -1,0 +1,105 @@
+.header-bar-area {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  top: 0px !important;
+  background-color: rgba(0, 0, 0, 0.781);
+  z-index: 20;
+}
+
+.header-bar-sec {
+  width: 80%;
+  margin: 0px auto;
+  /* padding-top: 10px; */
+}
+
+.header-icons-container {
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.header-nav-active,
+.header-nav-active:hover {
+  /* color: rgb(0, 166, 255); */
+  color: rgb(0, 157, 255);
+}
+
+.header-nav-inactive,
+.header-nav-inactive :hover {
+  color: white;
+}
+
+.header-search-bar {
+  padding-top: 10px;
+}
+
+.header-auth-btn-container-1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header-auth-btn-container-2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-signup-btn,
+.header-login-btn,
+.header-signup-btn:hover,
+.header-login-btn:hover {
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 0 5px;
+}
+
+.auth-btn-active,
+.auth-btn-active:hover {
+  background-color: white;
+  color: rgb(0, 157, 255);
+}
+
+.auth-btn-inactive,
+.auth-btn-inactive:hover {
+  background-color: white;
+  color: black;
+}
+
+/* media queries  */
+
+/* Extra extra large	xxl	≥1400px */
+@media (min-width: 1400px) {
+}
+
+/* Extra large	xl	≥1200px */
+@media (min-width: 1200px) and (max-width: 1399px) {
+}
+
+/* Large	lg	≥992px */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/* Medium	md	≥768px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .header-bar-sec {
+    width: 90%;
+  }
+}
+
+/* Small	sm	≥576px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .header-bar-sec {
+    width: 95%;
+  }
+}
+
+/* X-Small	None	<576px */
+@media (min-width: 0px) and (max-width: 575px) {
+  .header-bar-sec {
+    width: 95%;
+  }
+}

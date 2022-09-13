@@ -1,35 +1,12 @@
-.header-area {
-  height: 60px;
-  background-color: black;
-  color: white;
-  padding: 0;
-  margin: 0 !important;
+.signup-area {
+  margin-top: 100px;
 }
 
-.header-sec {
-  padding-top: 15px;
-  width: 85%;
+.signup-form-container {
+  width: 30%;
   margin: 0px auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.header-nav-link,
-.header-nav-link:hover {
-  text-decoration: none;
-  color: white;
-}
-
-.header-auth {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-auth-btn {
-  background-color: white;
-}
 /* media queries  */
 
 /* Extra extra large	xxl	≥1400px */
@@ -38,20 +15,35 @@
 
 /* Extra large	xl	≥1200px */
 @media (min-width: 1200px) and (max-width: 1399px) {
+  .signup-form-container {
+    width: 30%;
+  }
 }
 
 /* Large	lg	≥992px */
 @media (min-width: 992px) and (max-width: 1199px) {
+  .signup-form-container {
+    width: 40%;
+  }
 }
 
 /* Medium	md	≥768px */
 @media (min-width: 768px) and (max-width: 991px) {
+  .signup-form-container {
+    width: 40%;
+  }
 }
 
 /* Small	sm	≥576px */
 @media (min-width: 576px) and (max-width: 767px) {
+  .signup-form-container {
+    width: 60%;
+  }
 }
 
 /* X-Small	None	<576px */
 @media (min-width: 0px) and (max-width: 575px) {
+  .signup-form-container {
+    width: 80%;
+  }
 }

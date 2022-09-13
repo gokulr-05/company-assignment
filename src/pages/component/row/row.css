@@ -1,0 +1,43 @@
+.row-area {
+  margin-bottom: 25px;
+}
+
+.row-1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  gap: 25px;
+}
+
+.row-1::-webkit-scrollbar {
+  display: none;
+}
+
+.row-1-img-container {
+  flex-shrink: 0;
+  transition: 0.3s all;
+  padding: 20px 0;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.large-height {
+  height: 215px;
+  width: 150px;
+}
+
+.small-height {
+  height: 150px;
+  width: 150px;
+}
+
+.row-1-img {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.row-1-img-container:hover {
+  transform: scale(1.15);
+}

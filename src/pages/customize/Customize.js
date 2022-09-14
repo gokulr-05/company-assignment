@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import "./customize.css";
 import { useSelector, useDispatch } from "react-redux";
 import ListItem from "./ListItem";
@@ -7,6 +7,20 @@ import { authActions } from "../../slice/authSlice/authSlice";
 
 const Customize = () => {
   let dispatch = useDispatch();
+  let uniqueUserId;
+  let logindata = useSelector((state, action) => {
+    return state.authReducer.loginData;
+  });
+
+  console.log("logindata=", logindata);
+
+  if (logindata !== null) {
+    // uniqueUserId = logindata.
+  }
+
+  let isLoggedIn = useSelector((state, action) => {
+    return state.authReducer.isLoggedIn;
+  });
   let list = useSelector((state, action) => {
     return state.authReducer.list;
   });
@@ -25,6 +39,22 @@ const Customize = () => {
   let addRecommendationListData = function (name, ind) {
     dispatch(authActions.addDataToRecommendationList({ index: ind }));
   };
+
+  useEffect(() => {}, [list]);
+
+  useEffect(() => {}, [recommendationList]);
+
+  if (isLoggedIn === false) {
+    return (
+      <div className="customize-list-area">
+        <div className="customize-list-sec">
+          <h1 className="text-center">
+            Please Login to set Your recommendation List
+          </h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="customize-list-area">

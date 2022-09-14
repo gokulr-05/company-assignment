@@ -42,7 +42,7 @@ const Header = () => {
         console.log("fetched login info=", val);
         if (val !== null) {
           dispatch(authActions.login());
-          dispatch(authActions.setLoginData(val));
+          dispatch(authActions.setLoginData({ loginData: val }));
         }
       })
       .catch((err) => {

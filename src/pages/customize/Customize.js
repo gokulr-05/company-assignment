@@ -13,6 +13,9 @@ const Customize = () => {
   let recommendationList = useSelector((state, action) => {
     return state.authReducer.recommendationList;
   });
+  console.log("list=", list);
+  console.log("recommendationList=", recommendationList);
+
   let recommendationListUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/recommendationList.json";
 
@@ -27,9 +30,16 @@ const Customize = () => {
     <div className="customize-list-area">
       <div className="customize-list-sec">
         <h1 className="text-center">List</h1>
+        {list.length === 0 ? (
+          <h5 className="text-center text-muted">
+            All Items added to your recommendation List!!
+          </h5>
+        ) : (
+          ""
+        )}
         {list.map((val, ind, arr) => {
           return (
-            <h4 className="text-center">
+            <h4 className="text-center" key={shortid.generate()}>
               <ListItem
                 clickHandlerFunc={addRecommendationListData}
                 name="list"
@@ -41,9 +51,17 @@ const Customize = () => {
           );
         })}
         <h1 className="text-center mt-5">Recommendation List</h1>
+        {recommendationList.length === 0 ? (
+          <div className="text-center text-muted">
+            <h5>Your Recommendation list is Empty!!</h5>
+            <p>Click the above list data to add to your recommendation list </p>
+          </div>
+        ) : (
+          ""
+        )}
         {recommendationList.map((val, ind, arr) => {
           return (
-            <h4 className="text-center">
+            <h4 className="text-center" key={shortid.generate()}>
               <ListItem
                 clickHandlerFunc={addListData}
                 name="recommendationList"

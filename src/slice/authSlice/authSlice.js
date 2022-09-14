@@ -10,7 +10,7 @@ let authSlice = createSlice({
       "Top Rated",
       "Action Movies",
       "Comedy Movies",
-      "Horrer Movies",
+      "Horror Movies",
       "Documentaries",
     ],
     recommendationList: [],
@@ -37,11 +37,11 @@ let authSlice = createSlice({
     },
 
     addDataToList: (state, action) => {
-      let val = state.recommendationList.splice(action.payload.index, 1);
+      let [val] = state.recommendationList.splice(action.payload.index, 1);
       state.list.unshift(val);
     },
     addDataToRecommendationList: (state, action) => {
-      let val = state.list.splice(action.payload.index, 1);
+      let [val] = state.list.splice(action.payload.index, 1);
       state.recommendationList.unshift(val);
     },
   },

@@ -4,6 +4,7 @@ let authSlice = createSlice({
   name: "authSlice",
   initialState: {
     isLoggedIn: false,
+    loginData: null,
   },
   reducers: {
     login: (state, action) => {
@@ -11,6 +12,11 @@ let authSlice = createSlice({
     },
     logout: (state, action) => {
       state.isLoggedIn = false;
+      state.loginData = null;
+    },
+
+    setLoginData: (state, action) => {
+      state.loginData = action.payload.loginData;
     },
   },
 });

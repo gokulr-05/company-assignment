@@ -13,15 +13,22 @@ import {
 import { authActions } from "../../slice/authSlice/authSlice";
 
 const Header = () => {
+  let loginInfoUrl =
+    "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/loginInfo.json";
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let isLoggedIn = useSelector((state) => {
     return state.authReducer.isLoggedIn;
   });
 
-  let logoutHandler = function () {
-    dispatch(authActions.logout());
+  let logoutHandler = async function () {
+    await fetch(loginInfoUrl, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(null),
+    });
 
+    dispatch(authActions.logout());
     alert("Logged out Successfully!!");
     navigate("/home");
   };

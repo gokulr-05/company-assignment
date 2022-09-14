@@ -4,15 +4,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../slice/authSlice/authSlice";
 import { useNavigate } from "react-router-dom";
 
+let loginData = null;
 const Login = () => {
   let isLoggedIn = useSelector((state, action) => {
     return state.authReducer.isLoggedIn;
+  });
+
+  let logInfo = useSelector((state, action) => {
+    return state.authReducer.loginData;
   });
   // console.log("isLoggedIn=", isLoggedIn);
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let userDataUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/users.json";
+  let loginInfoUrl =
+    "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/loginInfo.json";
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
 
@@ -54,6 +61,7 @@ const Login = () => {
           if (password === val.password) {
             passwordFlag = true;
             overallFlag = true;
+            loginData = { ...val };
             break;
           } else {
             passwordFlag = false;
@@ -65,7 +73,18 @@ const Login = () => {
       console.log("After For loop");
 
       if (overallFlag === true && emailFlag === true && passwordFlag === true) {
+        try {
+          let res = await fetch(loginInfoUrl, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(loginData),
+          });
+          console.log("res=", res);
+        } catch (err) {
+          console.log(err);
+        }
         dispatch(authActions.login());
+        dispatch(authActions.setLoginData({ loginData: loginData }));
 
         console.log("LoggedIn Successfully!!");
         alert("LoggedIn Successfully!!");
@@ -118,6 +137,10 @@ const Login = () => {
   useEffect(() => {
     console.log("isLoggedIn=", isLoggedIn);
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    console.log("logInfo=", logInfo);
+  }, [logInfo]);
 
   return (
     <div className="login-area">

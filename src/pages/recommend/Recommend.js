@@ -1,8 +1,58 @@
 import React from "react";
 import "./recommend.css";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Recommend = () => {
-  return <div>Recommend</div>;
+  let logindata = useSelector((state, action) => {
+    return state.authReducer.loginData;
+  });
+  let recommendationList = useSelector((state) => {
+    return state.authReducer.recommendationList;
+  });
+  let isLoggedIn = useSelector((state, action) => {
+    return state.authReducer.isLoggedIn;
+  });
+  return (
+    <div className="recommend-list-area">
+      <div className="recommend-list-sec">
+        {isLoggedIn === true ? (
+          <div>
+            <h1 className="text-center">Recommend</h1>
+            {recommendationList.length === 0 ? (
+              <div>
+                {" "}
+                <h4 className="text-center text-muted">
+                  Your recommendation list is empty!!
+                </h4>
+                <p className="text-center text-muted">
+                  Please go and set your recommendation list!!
+                </p>
+                <di className="d-flex align-items-center justify-content-center">
+                  <Link
+                    to="/customize"
+                    className=" btn btn-primary text-center"
+                  >
+                    Set Recommendation
+                  </Link>
+                </di>
+              </div>
+            ) : (
+              ""
+            )}
+            {recommendationList.map((val, ind) => {
+              return <h5>{val}</h5>;
+            })}
+          </div>
+        ) : (
+          <h1 className="text-center">
+            {" "}
+            Please Login to view recommendation List
+          </h1>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Recommend;

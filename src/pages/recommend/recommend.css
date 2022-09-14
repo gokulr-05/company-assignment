@@ -1,0 +1,49 @@
+.recommend-list-area {
+  margin-top: 100px;
+}
+
+.recommend-list-sec {
+  width: 30%;
+  margin: 0px auto;
+}
+
+/* media queries  */
+
+/* Extra extra large	xxl	≥1400px */
+@media (min-width: 1400px) {
+}
+
+/* Extra large	xl	≥1200px */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .recommend-list-sec {
+    width: 30%;
+  }
+}
+
+/* Large	lg	≥992px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .recommend-list-sec {
+    width: 40%;
+  }
+}
+
+/* Medium	md	≥768px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .recommend-list-sec {
+    width: 40%;
+  }
+}
+
+/* Small	sm	≥576px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .recommend-list-sec {
+    width: 60%;
+  }
+}
+
+/* X-Small	None	<576px */
+@media (min-width: 0px) and (max-width: 575px) {
+  .recommend-list-sec {
+    width: 80%;
+  }
+}

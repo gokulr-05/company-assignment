@@ -1,0 +1,11 @@
+.list-item-design-container 
+{
+    cursor: pointer;
+}
+
+.list-item-design {
+  padding: 5px 10px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}

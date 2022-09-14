@@ -11,7 +11,7 @@ const Home = () => {
       <div className="home-sec">
         <Banner />
         <Row
-          title="Netflix Original"
+          title="Thriller Movies"
           url={`${baseURL}${request.fetchNetflixOriginals}`}
           isLarge={true}
         />

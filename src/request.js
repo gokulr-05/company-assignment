@@ -1,12 +1,14 @@
-export let API_KEY = "f93445a942bd04c00b774a5d9c724293";
+export let API_KEY = "b239f8404f1b613573622e325631cd80";
 
 export let baseURL = `https://api.themoviedb.org/3`;
 
 export let image_base_url = `https://image.tmdb.org/t/p/original/`;
 
 let request = {
-  fetchTrending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213`,
+  fetchTrending: `/trending/all/week?api_key=${API_KEY}`,
+  fetchTrending1: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}`,
+  fetchNetflixOriginals1: `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   fetchTopRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
   fetchActionMovies: `/discover/movie?api_key=${API_KEY}&with_genres=28`,
   fetchComedyMovies: `/discover/movie?api_key=${API_KEY}&with_genres=35`,

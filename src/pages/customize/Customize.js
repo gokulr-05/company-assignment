@@ -7,16 +7,17 @@ import { authActions } from "../../slice/authSlice/authSlice";
 
 const Customize = () => {
   let dispatch = useDispatch();
-  let [uniqueUserId, setUniqueUserId] = useState(null);
+  // let [uniqueUserId, setUniqueUserId] = useState(null);
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
 
   console.log("logindata=", logindata);
 
-  if (logindata !== null) {
-    setUniqueUserId(logindata.userId);
-  }
+  // if (logindata !== null) {
+  //   // setUniqueUserId(logindata.userId);
+
+  // }
 
   let isLoggedIn = useSelector((state, action) => {
     return state.authReducer.isLoggedIn;
@@ -40,15 +41,67 @@ const Customize = () => {
     dispatch(authActions.addDataToRecommendationList({ index: ind }));
   };
 
-  useEffect(() => {
-    if (uniqueUserId !== null && logindata !== null) {
+  // let asyncFetchRecommendationList = async function () {
+  //   let res = await fetch(recommendationListUrl);
+  //   let data = await res.json();
+  //   if (data === null) {
+  //     let recommendationObj = {
+  //       uniqueUserId: {
+  //         list: list,
+  //         recommendationList: recommendationList,
+  //       },
+  //     };
+  //   } else if (data !== null) {
+  //   }
+  // };
+
+  let putRecommendationObjHandler = async function (recommendationObj1) {
+    try {
+      let res = await fetch(recommendationListUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(recommendationObj1),
+      });
+
+      let data = await res.json();
+    } catch (err) {
+      console.log(err);
     }
-  }, [list]);
+  };
 
   useEffect(() => {
-    if (uniqueUserId !== null && logindata !== null) {
+    if (logindata !== null) {
+      fetch(recommendationListUrl)
+        .then((val) => {
+          return val.json();
+        })
+        .then((data) => {
+          console.log(" recommendationdata=", data);
+          let recommendationObj = {};
+          if (data === null) {
+            // recommendationObj = {
+            //   uniqueUserId: {
+            //     list: list,
+            //     recommendationList: recommendationList,
+            //   },
+            // };
+
+            recommendationObj[logindata.userId] = {
+              list: list,
+              recommendationList: recommendationList,
+            };
+          } else if (data !== null) {
+            recommendationObj = { ...data };
+            recommendationObj[logindata.userId] = {
+              list: list,
+              recommendationList: recommendationList,
+            };
+          }
+
+          putRecommendationObjHandler(recommendationObj);
+        });
     }
-  }, [recommendationList]);
+  }, [list, recommendationList]);
 
   if (isLoggedIn === false) {
     return (

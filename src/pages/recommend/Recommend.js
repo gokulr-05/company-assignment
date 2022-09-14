@@ -2,6 +2,8 @@ import React from "react";
 import "./recommend.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import shortid from "shortid";
+import RecommendItems from "./recommendItems/RecommendItems";
 
 const Recommend = () => {
   let logindata = useSelector((state, action) => {
@@ -18,7 +20,7 @@ const Recommend = () => {
       <div className="recommend-list-sec">
         {isLoggedIn === true ? (
           <div>
-            <h1 className="text-center">Recommend</h1>
+            {/* <h1 className="text-center">Recommend</h1> */}
             {recommendationList.length === 0 ? (
               <div>
                 {" "}
@@ -28,21 +30,28 @@ const Recommend = () => {
                 <p className="text-center text-muted">
                   Please go and set your recommendation list!!
                 </p>
-                <di className="d-flex align-items-center justify-content-center">
+                <div className="d-flex align-items-center justify-content-center">
                   <Link
                     to="/customize"
                     className=" btn btn-primary text-center"
                   >
                     Set Recommendation
                   </Link>
-                </di>
+                </div>
               </div>
             ) : (
               ""
             )}
-            {recommendationList.map((val, ind) => {
-              return <h5>{val}</h5>;
-            })}
+            <div className="recommend-list-container">
+              {recommendationList.map((val, ind) => {
+                return (
+                  <h5 key={shortid.generate()} className="text-center">
+                    <RecommendItems name={val} />
+                    {/* {val} */}
+                  </h5>
+                );
+              })}
+            </div>
           </div>
         ) : (
           <h1 className="text-center">

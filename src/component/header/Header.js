@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import "./header.css";
 import user from "../../assets/user.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -32,6 +32,24 @@ const Header = () => {
     alert("Logged out Successfully!!");
     navigate("/home");
   };
+
+  useEffect(() => {
+    fetch(loginInfoUrl)
+      .then((data) => {
+        return data.json();
+      })
+      .then((val) => {
+        console.log("fetched login info=", val);
+        if (val !== null) {
+          dispatch(authActions.login());
+          dispatch(authActions.setLoginData(val));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="header-bar-area">
       <div className="header-bar-sec ">

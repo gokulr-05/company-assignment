@@ -22,6 +22,15 @@ let authSlice = createSlice({
     logout: (state, action) => {
       state.isLoggedIn = false;
       state.loginData = null;
+      state.list = [
+        "Thriller Movies",
+        "Top Rated",
+        "Action Movies",
+        "Comedy Movies",
+        "Horror Movies",
+        "Documentaries",
+      ];
+      state.recommendationList = [];
     },
 
     setLoginData: (state, action) => {

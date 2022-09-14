@@ -6,6 +6,7 @@ import shortid from "shortid";
 import { authActions } from "../../slice/authSlice/authSlice";
 
 const Customize = () => {
+  let [firstExecUseEffect, setFirstExecUseEffect] = useState(false);
   let dispatch = useDispatch();
   // let [uniqueUserId, setUniqueUserId] = useState(null);
   let logindata = useSelector((state, action) => {
@@ -70,37 +71,41 @@ const Customize = () => {
   };
 
   useEffect(() => {
-    if (logindata !== null) {
-      fetch(recommendationListUrl)
-        .then((val) => {
-          return val.json();
-        })
-        .then((data) => {
-          console.log(" recommendationdata=", data);
-          let recommendationObj = {};
-          if (data === null) {
-            // recommendationObj = {
-            //   uniqueUserId: {
-            //     list: list,
-            //     recommendationList: recommendationList,
-            //   },
-            // };
+    if (firstExecUseEffect === true) {
+      if (logindata !== null) {
+        fetch(recommendationListUrl)
+          .then((val) => {
+            return val.json();
+          })
+          .then((data) => {
+            console.log(" recommendationdata=", data);
+            let recommendationObj = {};
+            if (data === null) {
+              // recommendationObj = {
+              //   uniqueUserId: {
+              //     list: list,
+              //     recommendationList: recommendationList,
+              //   },
+              // };
 
-            recommendationObj[logindata.userId] = {
-              list: list,
-              recommendationList: recommendationList,
-            };
-          } else if (data !== null) {
-            recommendationObj = { ...data };
-            recommendationObj[logindata.userId] = {
-              list: list,
-              recommendationList: recommendationList,
-            };
-          }
+              recommendationObj[logindata.userId] = {
+                list: list,
+                recommendationList: recommendationList,
+              };
+            } else if (data !== null) {
+              recommendationObj = { ...data };
+              recommendationObj[logindata.userId] = {
+                list: list,
+                recommendationList: recommendationList,
+              };
+            }
 
-          putRecommendationObjHandler(recommendationObj);
-        });
+            putRecommendationObjHandler(recommendationObj);
+          });
+      }
     }
+    // firstExecUseEffect = true;
+    setFirstExecUseEffect(true);
   }, [list, recommendationList]);
 
   if (isLoggedIn === false) {

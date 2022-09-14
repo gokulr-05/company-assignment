@@ -13,12 +13,18 @@ import {
 import { authActions } from "../../slice/authSlice/authSlice";
 
 const Header = () => {
+  let recommendationListUrl =
+    "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/recommendationList.json";
   let loginInfoUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/loginInfo.json";
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let isLoggedIn = useSelector((state) => {
     return state.authReducer.isLoggedIn;
+  });
+
+  let logindata = useSelector((state, action) => {
+    return state.authReducer.loginData;
   });
 
   let logoutHandler = async function () {
@@ -49,6 +55,38 @@ const Header = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn === true && logindata !== null) {
+      fetch(recommendationListUrl)
+        .then((data) => {
+          return data.json();
+        })
+        .then((val) => {
+          console.log("fetched recommended shows info=", val);
+          if (val !== null) {
+            if (val[logindata.userId] !== undefined) {
+              if (val[logindata.userId].list !== undefined) {
+                dispatch(
+                  authActions.setList({ list: val[logindata.userId].list })
+                );
+              }
+              if (val[logindata.userId].recommendationList !== undefined) {
+                dispatch(
+                  authActions.setRecommendationList({
+                    recommendationList:
+                      val[logindata.userId].recommendationList,
+                  })
+                );
+              }
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [logindata, isLoggedIn]);
 
   return (
     <div className="header-bar-area">

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./customize.css";
 import { useSelector, useDispatch } from "react-redux";
 import ListItem from "./ListItem";
@@ -7,7 +7,7 @@ import { authActions } from "../../slice/authSlice/authSlice";
 
 const Customize = () => {
   let dispatch = useDispatch();
-  let uniqueUserId;
+  let [uniqueUserId, setUniqueUserId] = useState(null);
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
@@ -15,7 +15,7 @@ const Customize = () => {
   console.log("logindata=", logindata);
 
   if (logindata !== null) {
-    // uniqueUserId = logindata.
+    setUniqueUserId(logindata.userId);
   }
 
   let isLoggedIn = useSelector((state, action) => {
@@ -40,9 +40,15 @@ const Customize = () => {
     dispatch(authActions.addDataToRecommendationList({ index: ind }));
   };
 
-  useEffect(() => {}, [list]);
+  useEffect(() => {
+    if (uniqueUserId !== null && logindata !== null) {
+    }
+  }, [list]);
 
-  useEffect(() => {}, [recommendationList]);
+  useEffect(() => {
+    if (uniqueUserId !== null && logindata !== null) {
+    }
+  }, [recommendationList]);
 
   if (isLoggedIn === false) {
     return (

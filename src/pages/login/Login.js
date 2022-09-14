@@ -1,7 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./login.css";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../slice/authSlice/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  let isLoggedIn = useSelector((state, action) => {
+    return state.authReducer.isLoggedIn;
+  });
+  // console.log("isLoggedIn=", isLoggedIn);
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
   let userDataUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/users.json";
   let [email, setEmail] = useState("");
@@ -56,9 +65,12 @@ const Login = () => {
       console.log("After For loop");
 
       if (overallFlag === true && emailFlag === true && passwordFlag === true) {
+        dispatch(authActions.login());
+
         console.log("LoggedIn Successfully!!");
         alert("LoggedIn Successfully!!");
         resetFields();
+        navigate("/home");
       } else if (
         emailFlag === true &&
         passwordFlag === false &&
@@ -102,6 +114,10 @@ const Login = () => {
 
     fetchDataHandler();
   };
+
+  useEffect(() => {
+    console.log("isLoggedIn=", isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <div className="login-area">

@@ -1,7 +1,8 @@
 import React from "react";
 import "./header.css";
-import { NavLink } from "react-router-dom";
-
+import user from "../../assets/user.jpg";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { AiFillHome } from "react-icons/ai";
 import {
   MdRecommend,
@@ -9,7 +10,21 @@ import {
   MdDashboardCustomize,
 } from "react-icons/md";
 
+import { authActions } from "../../slice/authSlice/authSlice";
+
 const Header = () => {
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  let isLoggedIn = useSelector((state) => {
+    return state.authReducer.isLoggedIn;
+  });
+
+  let logoutHandler = function () {
+    dispatch(authActions.logout());
+
+    alert("Logged out Successfully!!");
+    navigate("/home");
+  };
   return (
     <div className="header-bar-area">
       <div className="header-bar-sec ">
@@ -56,32 +71,46 @@ const Header = () => {
             />
           </div>
 
-          <div className="col-4 header-auth-btn-container-1  ">
-            <div className="header-auth-btn-container-2">
-              {/* <button className="header-signup-btn">Signup</button>
-              <button className="header-login-btn">Login</button> */}
-              <NavLink
-                to="/signup"
-                className={(obj) => {
-                  return `header-signup-btn ${
-                    obj.isActive ? "auth-btn-active" : "auth-btn-inactive"
-                  }`;
-                }}
-              >
-                Signup
-              </NavLink>
-              <NavLink
-                to="/login"
-                className={(obj) => {
-                  return `header-login-btn ${
-                    obj.isActive ? "auth-btn-active" : "auth-btn-inactive"
-                  }`;
-                }}
-              >
-                Login
-              </NavLink>
+          {isLoggedIn === false ? (
+            <div className="col-4 header-auth-btn-container-1  ">
+              <div className="header-auth-btn-container-2">
+                <NavLink
+                  to="/signup"
+                  className={(obj) => {
+                    return `header-signup-btn ${
+                      obj.isActive ? "auth-btn-active" : "auth-btn-inactive"
+                    }`;
+                  }}
+                >
+                  Signup
+                </NavLink>
+                <NavLink
+                  to="/login"
+                  className={(obj) => {
+                    return `header-login-btn ${
+                      obj.isActive ? "auth-btn-active" : "auth-btn-inactive"
+                    }`;
+                  }}
+                >
+                  Login
+                </NavLink>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="col-4 header-auth-btn-container-1  ">
+              <div className="header-auth-btn-container-2">
+                <div className="header-user-img-container">
+                  <img src={user} alt="user" className="header-user-img" />
+                </div>
+                <button
+                  onClick={logoutHandler}
+                  className="auth-btn-inactive header-logout-btn"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

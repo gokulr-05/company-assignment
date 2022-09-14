@@ -1,8 +1,10 @@
 import { useState } from "react";
 import shortid from "shortid";
 import "./signup.css";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  let navigate = useNavigate();
   let baseUrl = "https://company-assignment-9d5e6-default-rtdb.firebaseio.com";
   let usersDataUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/users.json";
@@ -92,6 +94,7 @@ const Signup = () => {
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+    navigate("/login");
   };
 
   let submitHandler = function (e) {

@@ -3,8 +3,6 @@ import "./banner.css";
 import request from "../../../request";
 import { baseURL, image_base_url } from "../../../request";
 import Spinner from "../spinner/Spinner";
-import pic from "../../../assets/netflix.png";
-import user from "../../../assets/user.jpg";
 
 const Banner = () => {
   let [showHeader, setShowHeader] = useState(false);

@@ -51,10 +51,17 @@
 .header-signup-btn,
 .header-login-btn,
 .header-signup-btn:hover,
-.header-login-btn:hover {
+.header-login-btn:hover,
+.header-logout-btn,
+.header-logout-btn:hover {
   border-radius: 5px;
   text-decoration: none;
   padding: 0 5px;
+}
+
+.header-logout-btn:active {
+  background-color: white;
+  color: rgb(0, 157, 255);
 }
 
 .auth-btn-active,
@@ -67,6 +74,16 @@
 .auth-btn-inactive:hover {
   background-color: white;
   color: black;
+}
+
+.header-user-img-container {
+  height: 50px;
+  cursor: pointer;
+}
+
+.header-user-img {
+  height: 100%;
+  width: 50px;
 }
 
 /* media queries  */

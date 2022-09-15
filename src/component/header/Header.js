@@ -100,10 +100,13 @@ const Header = () => {
   useEffect(() => {
     console.log("UseEffect in Header js");
     let userId = localStorage.getItem("userId");
-    let userData = JSON.parse(localStorage.getItem("userData"));
 
-    dispatch(authActions.login());
-    dispatch(authActions.setLoginData({ loginData: userData }));
+    if (userId) {
+      let userData = JSON.parse(localStorage.getItem("userData"));
+
+      dispatch(authActions.login());
+      dispatch(authActions.setLoginData({ loginData: userData }));
+    }
 
     // if (userId !== null) {
     //   fetch(usersDataUrl)

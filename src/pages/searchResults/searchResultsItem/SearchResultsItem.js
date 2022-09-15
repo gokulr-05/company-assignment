@@ -5,11 +5,8 @@ import shortid from "shortid";
 import RecommendItemModal from "../../recommend/recommendItemModal/RecommendItemModal";
 
 const SearchResultsItem = ({ data }) => {
-  // console.log("data=", data);
   let [show, setShow] = useState(false);
   let [dataVal, setDataVal] = useState(null);
-
-  console.log("dataVal=", dataVal);
 
   let handleShow = function () {
     setShow(true);
@@ -37,7 +34,7 @@ const SearchResultsItem = ({ data }) => {
             : "Not Found";
           let picBool = val.backdrop_path ? true : false;
           let pic = val.backdrop_path ? val.backdrop_path : val.poster_path;
-          // console.log("recommendation val=", val);
+
           let dataObj = {
             pic: pic,
             picBool: picBool,

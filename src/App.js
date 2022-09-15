@@ -13,7 +13,7 @@ const App = () => {
       "https://api.themoviedb.org/3/movie/550?api_key=f93445a942bd04c00b774a5d9c724293"
     );
     let data = await response.json();
-    // console.log("data=", data);
+    
   };
 
   useEffect(() => {

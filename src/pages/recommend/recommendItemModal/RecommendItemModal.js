@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-// import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import shortid from "shortid";
 import request, { baseURL, API_KEY, image_base_url } from "../../../request";
 import "./recommendationModal.css";
 
 function RecommendItemModal({ show, handleClose, data }) {
-  console.log("data in modal=", data);
   return (
     <>
       <Modal
@@ -37,10 +35,6 @@ function RecommendItemModal({ show, handleClose, data }) {
                 Description:
               </h5>
               <p className="text-dark text-center text-white m-0">
-                {/* {data?.description?.length > 200
-                  ? data?.description.slice(0, 200)
-                  : data?.description} */}
-
                 {data?.description}
               </p>
             </div>

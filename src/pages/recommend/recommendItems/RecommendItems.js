@@ -16,18 +16,16 @@ let obj = {
 };
 
 const RecommendItems = ({ name }) => {
-  console.log("name=", name);
   let [data, setData] = useState(null);
 
   useEffect(() => {
     async function asyncFetch() {
       let url = `${baseURL}${obj[name.toLowerCase()]}`;
-      console.log("url=", url);
+
       let res = await fetch(url);
       let value1 = await res.json();
-      console.log("value1=", value1);
+
       setData(value1.results);
-      // console.log("res=", res);
     }
     asyncFetch();
   }, []);
@@ -40,26 +38,7 @@ const RecommendItems = ({ name }) => {
     <div className="recommendItem-area my-5">
       <div className="recommendItem-sec">
         <h1 className="mb-5">{name}</h1>
-        {/* <div className="row g-5"> */}
         <RecommendItem data={data} />
-        {/* {data.map((val) => {
-            let picBool = val.backdrop_path ? true : false;
-            let pic = val.backdrop_path ? val.backdrop_path : val.poster_path;
-            console.log("recommendation val=", val);
-            return (
-              <div
-                key={shortid.generate()}
-                className="col-md-4 col-sm-6 col-12"
-              >
-                <img
-                  className={`w-100  ${!picBool ? "poster-path-img" : ""}`}
-                  src={`${image_base_url}${pic}`}
-                  alt="Poster Not Found"
-                />
-              </div>
-            );
-          })} */}
-        {/* </div> */}
       </div>
     </div>
   );

@@ -28,8 +28,6 @@ const Header = () => {
     return state.authReducer.totalDataArr;
   });
 
-  console.log("totalDataArr=", totalDataArr);
-
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
@@ -41,9 +39,6 @@ const Header = () => {
   let searchResultsArr = useSelector((state, action) => {
     return state.searchReducer.searchResultsArr;
   });
-
-  console.log("searchResultsArr=", searchResultsArr);
-  console.log("length of searchResultsArr=", searchResultsArr?.length);
 
   let logoutHandler = async function () {
     await fetch(loginInfoUrl, {
@@ -101,7 +96,6 @@ const Header = () => {
         return data.json();
       })
       .then((val) => {
-        console.log("fetched login info=", val);
         if (val !== null) {
           dispatch(authActions.login());
           dispatch(authActions.setLoginData({ loginData: val }));
@@ -119,7 +113,6 @@ const Header = () => {
           return data.json();
         })
         .then((val) => {
-          console.log("fetched recommended shows info=", val);
           if (val !== null) {
             if (val[logindata.userId] !== undefined) {
               if (val[logindata.userId].list !== undefined) {

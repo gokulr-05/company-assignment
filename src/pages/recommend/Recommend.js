@@ -20,7 +20,6 @@ const Recommend = () => {
       <div className="recommend-list-sec">
         {isLoggedIn === true ? (
           <div>
-            {/* <h1 className="text-center">Recommend</h1> */}
             {recommendationList.length === 0 ? (
               <div>
                 {" "}
@@ -47,7 +46,6 @@ const Recommend = () => {
                 return (
                   <h5 key={shortid.generate()} className="text-center">
                     <RecommendItems name={val} />
-                    {/* {val} */}
                   </h5>
                 );
               })}

@@ -14,7 +14,7 @@ const Login = () => {
   let logInfo = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
-  // console.log("isLoggedIn=", isLoggedIn);
+
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let userDataUrl =
@@ -39,29 +39,20 @@ const Login = () => {
   };
 
   let fetchDataHandler = async function () {
-    console.log("Inside FetchDataHandler");
     let res = await fetch(userDataUrl);
     let data = await res.json();
 
-    console.log("fetched data=", data);
-
     if (data === null) {
-      console.log(
-        "Email is not Registered!!\nPlease Register the email and try to login"
-      );
       alert(
         "Email is not Registered!!\nPlease Register the email and try to login"
       );
       resetFields();
     } else if (data != null) {
-      console.log("Inside else condition of not null");
       let overallFlag = false;
       let emailFlag = false;
       let passwordFlag = false;
       for (let key in data) {
-        console.log("key=", key);
         let val = data[key];
-        console.log("val=", val);
         overallFlag = false;
         emailFlag = false;
         passwordFlag = false;
@@ -80,7 +71,6 @@ const Login = () => {
           }
         }
       }
-      console.log("After For loop");
 
       if (overallFlag === true && emailFlag === true && passwordFlag === true) {
         try {
@@ -89,14 +79,12 @@ const Login = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(loginData),
           });
-          console.log("res=", res);
         } catch (err) {
           console.log(err);
         }
         dispatch(authActions.login());
         dispatch(authActions.setLoginData({ loginData: loginData }));
 
-        console.log("LoggedIn Successfully!!");
         alert("LoggedIn Successfully!!");
         resetFields();
         navigate("/home");
@@ -105,7 +93,6 @@ const Login = () => {
         passwordFlag === false &&
         overallFlag === false
       ) {
-        console.log("Incorrect Password!!\nPlease Provide a valid password");
         alert("Incorrect Password!!\nPlease Provide a valid password");
         setPassword("");
       } else if (
@@ -113,9 +100,6 @@ const Login = () => {
         passwordFlag === false &&
         overallFlag === false
       ) {
-        console.log(
-          "Email is not Registered!!\nPlease Register the email and try to login"
-        );
         alert(
           "Email is not Registered!!\nPlease Register the email and try to login"
         );
@@ -136,7 +120,6 @@ const Login = () => {
     e.preventDefault();
 
     if (email.length === 0 || password.length === 0) {
-      console.log("Email And Password Fields should not be empty!!");
       alert("Email And Password Fields should not be empty!!");
       return;
     }
@@ -144,13 +127,7 @@ const Login = () => {
     fetchDataHandler();
   };
 
-  useEffect(() => {
-    console.log("isLoggedIn=", isLoggedIn);
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    console.log("logInfo=", logInfo);
-  }, [logInfo]);
+  useEffect(() => {}, [isLoggedIn]);
 
   useEffect(() => {
     validationCheck();

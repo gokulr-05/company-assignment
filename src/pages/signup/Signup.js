@@ -87,7 +87,6 @@ const Signup = () => {
       let res = await fetch(`${baseUrl}/users.json`);
       let data = await res.json();
 
-      console.log("fetched data=", data);
       return data;
     };
     return asyncFetchHandler();
@@ -102,7 +101,6 @@ const Signup = () => {
       idBool = await fetchIdHandler(newId);
     }
 
-    console.log("It is a new email");
     await postingData(newId);
     alert("registration successful");
     setName("");
@@ -118,7 +116,7 @@ const Signup = () => {
     async function asyncOperation() {
       try {
         let data = await fetchHandler();
-        console.log("In AsyncOperation: data=", data);
+
         if (data !== null) {
           let existingUsersArr = Object.values(data);
           if (existingUsersArr.length > 0) {
@@ -128,7 +126,6 @@ const Signup = () => {
             if (!usersEmailArr.includes(email)) {
               uniqueUserIdGenerator();
             } else {
-              console.log("It is an existing email");
               alert(
                 "EmailAddress already registered!!\nPlease proceed with Login or use alternate email to signup"
               );

@@ -8,7 +8,6 @@ const Banner = () => {
   let [showHeader, setShowHeader] = useState(false);
   let [image, setImage] = useState("");
   let [movies, setMovies] = useState("");
-  // console.log("movies=", movies);
 
   let overview =
     movies?.overview?.length > 250
@@ -36,26 +35,10 @@ const Banner = () => {
           className="background-img"
         >
           <div className="banner-mask">
-            {/* <div className="banner-header">
-              <div className={`banner-header-2 header-bg  `}>
-                <img className="pic" src={pic} alt="pic" />
-                <img src={user} className="pic" alt="" />
-              </div>
-            </div> */}
             <div className="movie-details">
               <h2 className="movie-title">{movies?.name}</h2>
 
-              {/* <div className="banner-btn-container">
-                <button>
-                  <p className="m-0">Play</p>
-                </button>
-                <button>
-                  <p className="m-0">My List</p>
-                </button>
-              </div> */}
-
               <div className="pe-3">
-                {/* <strong>{movies?.overview}</strong> */}
                 <strong>{overview}</strong>
               </div>
             </div>

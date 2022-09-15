@@ -8,17 +8,10 @@ import { authActions } from "../../slice/authSlice/authSlice";
 const Customize = () => {
   let [firstExecUseEffect, setFirstExecUseEffect] = useState(false);
   let dispatch = useDispatch();
-  // let [uniqueUserId, setUniqueUserId] = useState(null);
+
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
-
-  console.log("logindata=", logindata);
-
-  // if (logindata !== null) {
-  //   // setUniqueUserId(logindata.userId);
-
-  // }
 
   let isLoggedIn = useSelector((state, action) => {
     return state.authReducer.isLoggedIn;
@@ -29,8 +22,6 @@ const Customize = () => {
   let recommendationList = useSelector((state, action) => {
     return state.authReducer.recommendationList;
   });
-  console.log("list=", list);
-  console.log("recommendationList=", recommendationList);
 
   let recommendationListUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/recommendationList.json";
@@ -41,20 +32,6 @@ const Customize = () => {
   let addRecommendationListData = function (name, ind) {
     dispatch(authActions.addDataToRecommendationList({ index: ind }));
   };
-
-  // let asyncFetchRecommendationList = async function () {
-  //   let res = await fetch(recommendationListUrl);
-  //   let data = await res.json();
-  //   if (data === null) {
-  //     let recommendationObj = {
-  //       uniqueUserId: {
-  //         list: list,
-  //         recommendationList: recommendationList,
-  //       },
-  //     };
-  //   } else if (data !== null) {
-  //   }
-  // };
 
   let putRecommendationObjHandler = async function (recommendationObj1) {
     try {
@@ -78,16 +55,8 @@ const Customize = () => {
             return val.json();
           })
           .then((data) => {
-            console.log(" recommendationdata=", data);
             let recommendationObj = {};
             if (data === null) {
-              // recommendationObj = {
-              //   uniqueUserId: {
-              //     list: list,
-              //     recommendationList: recommendationList,
-              //   },
-              // };
-
               recommendationObj[logindata.userId] = {
                 list: list,
                 recommendationList: recommendationList,
@@ -104,7 +73,7 @@ const Customize = () => {
           });
       }
     }
-    // firstExecUseEffect = true;
+
     setFirstExecUseEffect(true);
   }, [list, recommendationList]);
 

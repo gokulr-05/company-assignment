@@ -11,6 +11,7 @@ import {
 } from "react-icons/md";
 
 import { authActions } from "../../slice/authSlice/authSlice";
+import { searchActions } from "../../slice/searchSlice/searchSlice";
 
 const Header = () => {
   let recommendationListUrl =
@@ -23,9 +24,24 @@ const Header = () => {
     return state.authReducer.isLoggedIn;
   });
 
+  let totalDataArr = useSelector((state, action) => {
+    return state.authReducer.totalDataArr;
+  });
+
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
+
+  let searchInput = useSelector((state, action) => {
+    return state.searchReducer.searchInput;
+  });
+
+  let searchResultsArr = useSelector((state, action) => {
+    return state.searchReducer.searchResultsArr;
+  });
+
+  console.log("searchResultsArr=", searchResultsArr);
+  console.log("length of searchResultsArr=", searchResultsArr?.length);
 
   let logoutHandler = async function () {
     await fetch(loginInfoUrl, {
@@ -38,6 +54,30 @@ const Header = () => {
     alert("Logged out Successfully!!");
     navigate("/home");
   };
+
+  let onChangeHandler = function (e) {
+    dispatch(searchActions.updateSearchInput({ searchInput: e.target.value }));
+  };
+
+  useEffect(() => {
+    if (totalDataArr.length > 0) {
+      let searchResults = totalDataArr.filter((val, ind, arr) => {
+        let title = val.original_name
+          ? val.original_name
+          : val.original_title
+          ? val.original_title
+          : val.title
+          ? val.title
+          : "";
+
+        return title.toLowerCase().includes(searchInput.toLowerCase());
+      });
+
+      dispatch(
+        searchActions.updateSearchResultArr({ searchResultsArr: searchResults })
+      );
+    }
+  }, [searchInput]);
 
   useEffect(() => {
     fetch(loginInfoUrl)
@@ -129,6 +169,10 @@ const Header = () => {
           <div className="col-4">
             <input
               placeholder="Search..."
+              value={searchInput}
+              onChange={(e) => {
+                onChangeHandler(e);
+              }}
               type="text"
               className="form-control header-search-bar mt-1"
             />

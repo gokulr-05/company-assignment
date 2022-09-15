@@ -28,6 +28,8 @@ const Header = () => {
     return state.authReducer.totalDataArr;
   });
 
+  console.log("totalDataArr=", totalDataArr);
+
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
   });
@@ -55,27 +57,41 @@ const Header = () => {
     navigate("/home");
   };
 
+  let submitHandler = function (e) {
+    e.preventDefault();
+    navigate("/searchresults");
+  };
+
   let onChangeHandler = function (e) {
     dispatch(searchActions.updateSearchInput({ searchInput: e.target.value }));
   };
 
   useEffect(() => {
     if (totalDataArr.length > 0) {
-      let searchResults = totalDataArr.filter((val, ind, arr) => {
-        let title = val.original_name
-          ? val.original_name
-          : val.original_title
-          ? val.original_title
-          : val.title
-          ? val.title
-          : "";
+      if (searchInput?.trim().length > 0) {
+        let searchResults = totalDataArr.filter((val, ind, arr) => {
+          let title = val.original_name
+            ? val.original_name
+            : val.original_title
+            ? val.original_title
+            : val.title
+            ? val.title
+            : "";
 
-        return title.toLowerCase().includes(searchInput.toLowerCase());
-      });
+          return title
+            ?.trim()
+            ?.toLowerCase()
+            ?.includes(searchInput?.trim()?.toLowerCase());
+        });
 
-      dispatch(
-        searchActions.updateSearchResultArr({ searchResultsArr: searchResults })
-      );
+        dispatch(
+          searchActions.updateSearchResultArr({
+            searchResultsArr: searchResults,
+          })
+        );
+      } else if (searchInput?.trim().length === 0) {
+        dispatch(searchActions.emptySearchResultsArr());
+      }
     }
   }, [searchInput]);
 
@@ -167,15 +183,17 @@ const Header = () => {
             </div>
           </div>
           <div className="col-4">
-            <input
-              placeholder="Search..."
-              value={searchInput}
-              onChange={(e) => {
-                onChangeHandler(e);
-              }}
-              type="text"
-              className="form-control header-search-bar mt-1"
-            />
+            <form onSubmit={submitHandler}>
+              <input
+                placeholder="Search..."
+                value={searchInput}
+                onChange={(e) => {
+                  onChangeHandler(e);
+                }}
+                type="text"
+                className="form-control header-search-bar mt-1"
+              />
+            </form>
           </div>
 
           {isLoggedIn === false ? (

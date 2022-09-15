@@ -1,0 +1,15 @@
+.poster-path-img {
+  height: 124px;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.scaling {
+  transition: 0.3s all;
+}
+
+.scaling:hover {
+  transform: scale(1.1);
+}

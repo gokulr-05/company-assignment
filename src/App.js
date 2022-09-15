@@ -6,6 +6,7 @@ import Recommend from "./pages/recommend/Recommend";
 import Customize from "./pages/customize/Customize";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
+import SearchResults from "../src/pages/searchResults/SearchResults";
 const App = () => {
   let fetchFunc = async () => {
     let response = await fetch(
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/customize" element={<Customize />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/searchresults" element={<SearchResults />} />
       </Routes>
     </div>
   );

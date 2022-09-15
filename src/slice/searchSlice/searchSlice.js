@@ -14,6 +14,10 @@ let searchSlice = createSlice({
     updateSearchResultArr: (state, action) => {
       state.searchResultsArr = [...action.payload.searchResultsArr];
     },
+
+    emptySearchResultsArr: (state, action) => {
+      state.searchResultsArr = [];
+    },
   },
 });
 

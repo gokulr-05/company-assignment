@@ -1,0 +1,55 @@
+.search-list-area {
+  margin-top: 100px;
+}
+
+.search-list-sec {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.search-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* media queries  */
+
+/* Extra extra large	xxl	≥1400px */
+@media (min-width: 1400px) {
+}
+
+/* Extra large	xl	≥1200px */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .search-list-sec {
+    width: 70%;
+  }
+}
+
+/* Large	lg	≥992px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .search-list-sec {
+    width: 75%;
+  }
+}
+
+/* Medium	md	≥768px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .search-list-sec {
+    width: 80%;
+  }
+}
+
+/* Small	sm	≥576px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .search-list-sec {
+    width: 90%;
+  }
+}
+
+/* X-Small	None	<576px */
+@media (min-width: 0px) and (max-width: 575px) {
+  .search-list-sec {
+    width: 95%;
+  }
+}

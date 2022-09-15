@@ -9,7 +9,13 @@ function RecommendItemModal({ show, handleClose, data }) {
   console.log("data in modal=", data);
   return (
     <>
-      <Modal size="xl" show={show} onHide={handleClose} centered>
+      <Modal
+        scrollable={true}
+        size="xl"
+        show={show}
+        onHide={handleClose}
+        centered
+      >
         <Modal.Body>
           <div className="recommend-modal-container">
             <div className="recommend-modal-img-container">

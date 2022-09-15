@@ -37,9 +37,9 @@ const RecommendItems = ({ name }) => {
   }
 
   return (
-    <div className="recommendItem-area">
+    <div className="recommendItem-area my-5">
       <div className="recommendItem-sec">
-        <h1>{name}</h1>
+        <h1 className="mb-5">{name}</h1>
         {/* <div className="row g-5"> */}
         <RecommendItem data={data} />
         {/* {data.map((val) => {

@@ -31,6 +31,10 @@ function RecommendItemModal({ show, handleClose, data }) {
                 Description:
               </h5>
               <p className="text-dark text-center text-white m-0">
+                {/* {data?.description?.length > 200
+                  ? data?.description.slice(0, 200)
+                  : data?.description} */}
+
                 {data?.description}
               </p>
             </div>

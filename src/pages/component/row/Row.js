@@ -8,27 +8,49 @@ import shortid from "shortid";
 import TrailerModal from "../modal/Modal";
 import NotFoundModal from "../notFoundModal/NotFoundModal";
 
+import RecommendItemModal from "../../recommend/recommendItemModal/RecommendItemModal";
+
 const Row = ({ title, url, isLarge }) => {
   let youtube_base_url = "https://www.youtube.com/embed/";
   let [videoTitle, setVideoTitle] = useState("");
   let [videoURL, setVideoURL] = useState("");
   let height = isLarge ? "large-height" : "small-height";
 
+  let [dataVal, setDataVal] = useState(null);
+
   let [movies, setMovies] = useState([]);
 
-  const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
+  let [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleClose1 = () => setShow1(false);
-
-  const handleShow = () => {
+  let handleShow = function () {
     setShow(true);
   };
-  const handleShow1 = () => {
-    setShow1(true);
+
+  let handleClose = function () {
+    setShow(false);
   };
 
+  let clickHandler = function (dataObj) {
+    setDataVal(dataObj);
+    handleShow();
+  };
+
+  // const [show, setShow] = useState(false);
+  // const [show1, setShow1] = useState(false);
+
+  // *************original start****************
+
+  // const handleClose = () => setShow(false);
+  // const handleClose1 = () => setShow1(false);
+
+  // const handleShow = () => {
+  //   setShow(true);
+  // };
+  // const handleShow1 = () => {
+  //   setShow1(true);
+  // };
+
+  // *************original end****************
   useEffect(() => {
     let fetching = async () => {
       let response = await fetch(url);
@@ -39,24 +61,24 @@ const Row = ({ title, url, isLarge }) => {
     fetching();
   }, []);
 
-  let clickHandler = (movie_title) => {
-    let fetchURL = async (movie_title) => {
-      try {
-        let response = await movieTrailer(movie_title);
-        // console.log("response=", response);
-        let url_id = await new URLSearchParams(new URL(response).search);
-        await setVideoURL(url_id.get("v"));
-        await handleShow();
-        // console.log("try");
-      } catch (err) {
-        // console.log("error occured: Trailer Link Not Found");
-        handleShow1();
-        // console.log("catch");
-      }
-    };
+  // let clickHandler = (movie_title) => {
+  //   let fetchURL = async (movie_title) => {
+  //     try {
+  //       let response = await movieTrailer(movie_title);
+  //       // console.log("response=", response);
+  //       let url_id = await new URLSearchParams(new URL(response).search);
+  //       await setVideoURL(url_id.get("v"));
+  //       await handleShow();
+  //       // console.log("try");
+  //     } catch (err) {
+  //       // console.log("error occured: Trailer Link Not Found");
+  //       handleShow1();
+  //       // console.log("catch");
+  //     }
+  //   };
 
-    fetchURL(movie_title);
-  };
+  //   fetchURL(movie_title);
+  // };
 
   return movies?.length > 0 ? (
     <div className="row-area ">
@@ -64,11 +86,32 @@ const Row = ({ title, url, isLarge }) => {
         <h2 className="m-0">{title}</h2>
         <div className="row-1  ps-3">
           {movies.map((val, ind, arr) => {
+            console.log("val in Row js=", val);
+
+            let title = val.original_name
+              ? val.original_name
+              : val.original_title
+              ? val.original_title
+              : val.title
+              ? val.title
+              : "Not Found";
+            let picBool = val.backdrop_path ? true : false;
+            let pic = val.backdrop_path ? val.backdrop_path : val.poster_path;
+
+            let dataObj = {
+              pic: pic,
+              picBool: picBool,
+              title: title,
+              description: val.overview,
+            };
             return (
               <div
                 onClick={() => {
-                  clickHandler(val.name || val.title);
+                  clickHandler(dataObj);
                 }}
+                // onClick={() => {
+                //   clickHandler(val.name || val.title);
+                // }}
                 key={ind}
                 className={`row-1-img-container ${height} `}
               >
@@ -85,12 +128,19 @@ const Row = ({ title, url, isLarge }) => {
           })}
         </div>
       </div>
-      <TrailerModal
+
+      <RecommendItemModal
+        show={show}
+        handleClose={handleClose}
+        data={dataVal}
+      />
+
+      {/* <TrailerModal
         src={`${youtube_base_url}${videoURL}`}
         show={show}
         handleClose={handleClose}
-      />
-      <NotFoundModal show1={show1} handleClose1={handleClose1} />
+      /> */}
+      {/* <NotFoundModal show1={show1} handleClose1={handleClose1} /> */}
     </div>
   ) : (
     <Spinner />

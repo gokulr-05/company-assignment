@@ -3,6 +3,7 @@ import "./login.css";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../slice/authSlice/authSlice";
 import { useNavigate } from "react-router-dom";
+import { validEmail, validPassword } from "../../validation/validation";
 
 let loginData = null;
 const Login = () => {
@@ -22,6 +23,15 @@ const Login = () => {
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/loginInfo.json";
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [disable, setDisable] = useState(true);
+
+  let validationCheck = function () {
+    if (validEmail.test(email) && validPassword.test(password)) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  };
 
   let resetFields = function () {
     setEmail("");
@@ -142,6 +152,10 @@ const Login = () => {
     console.log("logInfo=", logInfo);
   }, [logInfo]);
 
+  useEffect(() => {
+    validationCheck();
+  }, [email, password]);
+
   return (
     <div className="login-area">
       <div className="login-form-container">
@@ -167,9 +181,12 @@ const Login = () => {
               className="form-control"
               onChange={passwordChangeHandler}
             />
+            <small className="text-muted">
+              Min 8 characters. Must contain uppercase,lowercase,symbol.
+            </small>
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button disabled={disable} type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>

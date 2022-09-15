@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import shortid from "shortid";
 import "./signup.css";
 import { useNavigate } from "react-router-dom";
+import { validEmail, validPassword } from "../../validation/validation";
 
 const Signup = () => {
   let navigate = useNavigate();
@@ -12,6 +13,20 @@ const Signup = () => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [confirmPassword, setConfirmPassword] = useState("");
+
+  let [disable, setDisable] = useState(true);
+
+  let validationCheck = function () {
+    if (
+      validEmail.test(email) &&
+      validPassword.test(password) &&
+      confirmPassword === password
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  };
 
   let postingData = async function (uniqueUserId) {
     let res = await fetch(
@@ -135,6 +150,10 @@ const Signup = () => {
     asyncOperation();
   };
 
+  useEffect(() => {
+    validationCheck();
+  }, [email, password, confirmPassword]);
+
   return (
     <div className="signup-area">
       <div className="signup-form-container">
@@ -171,6 +190,9 @@ const Signup = () => {
               value={password}
               onChange={passwordChangeHandler}
             />
+            <small className="text-muted">
+              Min 8 characters. Must contain uppercase,lowercase,symbol.
+            </small>
           </div>
           <div className="mb-3">
             <label htmlFor="confirmPassword" className="form-label">
@@ -182,9 +204,10 @@ const Signup = () => {
               value={confirmPassword}
               onChange={confirmPasswordChangeHandler}
             />
+            <small className="text-muted">Should be same as password.</small>
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button disabled={disable} type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>

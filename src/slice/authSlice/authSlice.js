@@ -14,6 +14,8 @@ let authSlice = createSlice({
       "Documentaries",
     ],
     recommendationList: [],
+
+    totalDataArr: [],
   },
   reducers: {
     login: (state, action) => {
@@ -52,6 +54,10 @@ let authSlice = createSlice({
     addDataToRecommendationList: (state, action) => {
       let [val] = state.list.splice(action.payload.index, 1);
       state.recommendationList.unshift(val);
+    },
+
+    addToTotalDataArr: (state, action) => {
+      state.totalDataArr = [...state.totalDataArr, ...action.payload.dataArr];
     },
   },
 });

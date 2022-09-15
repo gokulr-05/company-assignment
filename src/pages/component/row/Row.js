@@ -7,10 +7,17 @@ import movieTrailer from "movie-trailer";
 import shortid from "shortid";
 import TrailerModal from "../modal/Modal";
 import NotFoundModal from "../notFoundModal/NotFoundModal";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../../slice/authSlice/authSlice";
 
 import RecommendItemModal from "../../recommend/recommendItemModal/RecommendItemModal";
 
 const Row = ({ title, url, isLarge }) => {
+  let totalDataArr = useSelector((state, action) => {
+    return state.authReducer.totalDataArr;
+  });
+  console.log("totalDataArr=", totalDataArr);
+  let dispatch = useDispatch();
   let youtube_base_url = "https://www.youtube.com/embed/";
   let [videoTitle, setVideoTitle] = useState("");
   let [videoURL, setVideoURL] = useState("");
@@ -61,6 +68,12 @@ const Row = ({ title, url, isLarge }) => {
     fetching();
   }, []);
 
+  useEffect(() => {
+    if (movies.length > 0) {
+      dispatch(authActions.addToTotalDataArr({ dataArr: [...movies] }));
+    }
+  }, [movies]);
+
   // let clickHandler = (movie_title) => {
   //   let fetchURL = async (movie_title) => {
   //     try {
@@ -86,7 +99,7 @@ const Row = ({ title, url, isLarge }) => {
         <h2 className="m-0">{title}</h2>
         <div className="row-1  ps-3">
           {movies.map((val, ind, arr) => {
-            console.log("val in Row js=", val);
+            // console.log("val in Row js=", val);
 
             let title = val.original_name
               ? val.original_name

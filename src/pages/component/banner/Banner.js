@@ -45,14 +45,14 @@ const Banner = () => {
             <div className="movie-details">
               <h2 className="movie-title">{movies?.name}</h2>
 
-              <div className="banner-btn-container">
+              {/* <div className="banner-btn-container">
                 <button>
                   <p className="m-0">Play</p>
                 </button>
                 <button>
                   <p className="m-0">My List</p>
                 </button>
-              </div>
+              </div> */}
 
               <div className="pe-3">
                 {/* <strong>{movies?.overview}</strong> */}

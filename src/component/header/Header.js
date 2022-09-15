@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./header.css";
 import user from "../../assets/user.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -18,11 +18,15 @@ const Header = () => {
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/recommendationList.json";
   let loginInfoUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/loginInfo.json";
+  let usersDataUrl =
+    "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/users.json";
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let isLoggedIn = useSelector((state) => {
     return state.authReducer.isLoggedIn;
   });
+
+  let [loggedInUserData, setLoggedInUserData] = useState(null);
 
   let totalDataArr = useSelector((state, action) => {
     return state.authReducer.totalDataArr;
@@ -41,6 +45,9 @@ const Header = () => {
   });
 
   let logoutHandler = async function () {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userData");
+
     await fetch(loginInfoUrl, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -91,20 +98,60 @@ const Header = () => {
   }, [searchInput]);
 
   useEffect(() => {
-    fetch(loginInfoUrl)
-      .then((data) => {
-        return data.json();
-      })
-      .then((val) => {
-        if (val !== null) {
-          dispatch(authActions.login());
-          dispatch(authActions.setLoginData({ loginData: val }));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log("UseEffect in Header js");
+    let userId = localStorage.getItem("userId");
+    let userData = JSON.parse(localStorage.getItem("userData"));
+
+    dispatch(authActions.login());
+    dispatch(authActions.setLoginData({ loginData: userData }));
+
+    // if (userId !== null) {
+    //   fetch(usersDataUrl)
+    //     .then((data) => {
+    //       return data.json();
+    //     })
+    //     .then((val) => {
+    //       if (val !== null) {
+    //         // let loggedInUserData;
+    //         let values1 = Object.values(val);
+
+    //         console.log("values1=", values1);
+
+    //         for (let obj of values1) {
+    //           if (obj?.userId === userId) {
+    //             console.log("obj=", obj);
+    //             // loggedInUserData = { obj };
+    //             // setLoggedInUserData(obj);
+    //             // console.log("loggedInUserData=", loggedInUserData);
+    //             dispatch(authActions.login());
+    //             dispatch(
+    //               authActions.setLoginData({ loginData: loggedInUserData })
+    //             );
+    //             break;
+    //           }
+    //         }
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
   }, []);
+  // useEffect(() => {
+  //   fetch(loginInfoUrl)
+  //     .then((data) => {
+  //       return data.json();
+  //     })
+  //     .then((val) => {
+  //       if (val !== null) {
+  //         dispatch(authActions.login());
+  //         dispatch(authActions.setLoginData({ loginData: val }));
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (isLoggedIn === true && logindata !== null) {

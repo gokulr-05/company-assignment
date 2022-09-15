@@ -74,11 +74,13 @@ const Login = () => {
 
       if (overallFlag === true && emailFlag === true && passwordFlag === true) {
         try {
-          let res = await fetch(loginInfoUrl, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(loginData),
-          });
+          localStorage.setItem("userId", loginData.userId);
+          localStorage.setItem("userData", JSON.stringify(loginData));
+          // let res = await fetch(loginInfoUrl, {
+          //   method: "PUT",
+          //   headers: { "Content-Type": "application/json" },
+          //   body: JSON.stringify(loginData),
+          // });
         } catch (err) {
           console.log(err);
         }

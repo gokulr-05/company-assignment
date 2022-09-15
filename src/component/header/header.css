@@ -112,11 +112,22 @@
   .header-bar-sec {
     width: 95%;
   }
+
+  .header-auth-btn-container-2 {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
 }
 
 /* X-Small	None	<576px */
 @media (min-width: 0px) and (max-width: 575px) {
   .header-bar-sec {
     width: 95%;
+  }
+  .header-auth-btn-container-2 {
+    display: flex;
+    align-items: center;
+    gap: 3px;
   }
 }

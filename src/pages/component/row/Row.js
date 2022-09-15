@@ -128,12 +128,18 @@ const Row = ({ title, url, isLarge }) => {
                 key={ind}
                 className={`row-1-img-container ${height} `}
               >
-                <img
+                {/* <img
                   className="row-1-img"
                   key={ind}
                   src={`${image_base_url}${
                     isLarge ? val.poster_path : val.backdrop_path
                   }`}
+                  alt=""
+                /> */}
+                <img
+                  className="row-1-img"
+                  key={ind}
+                  src={`${image_base_url}${pic}`}
                   alt=""
                 />
               </div>

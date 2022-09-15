@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import request, { baseURL, API_KEY, image_base_url } from "../../../request";
 import "./recommendItems.css";
 import Spinner from "../../../pages/component/spinner/Spinner";
+import shortid from "shortid";
+import RecommendItemModal from "../recommendItemModal/RecommendItemModal";
+import RecommendItem from "../recommendItem/RecommendItem";
 
 let obj = {
   "action movies": request.fetchActionMovies,
@@ -37,19 +40,26 @@ const RecommendItems = ({ name }) => {
     <div className="recommendItem-area">
       <div className="recommendItem-sec">
         <h1>{name}</h1>
-        <div className="row g-5">
-          {data.map((val) => {
+        {/* <div className="row g-5"> */}
+        <RecommendItem data={data} />
+        {/* {data.map((val) => {
+            let picBool = val.backdrop_path ? true : false;
+            let pic = val.backdrop_path ? val.backdrop_path : val.poster_path;
+            console.log("recommendation val=", val);
             return (
-              <div className="col-md-4 col-sm-6 col-12">
+              <div
+                key={shortid.generate()}
+                className="col-md-4 col-sm-6 col-12"
+              >
                 <img
-                  className="w-100"
-                  src={`${image_base_url}${val.backdrop_path}`}
+                  className={`w-100  ${!picBool ? "poster-path-img" : ""}`}
+                  src={`${image_base_url}${pic}`}
                   alt="Poster Not Found"
                 />
               </div>
             );
-          })}
-        </div>
+          })} */}
+        {/* </div> */}
       </div>
     </div>
   );

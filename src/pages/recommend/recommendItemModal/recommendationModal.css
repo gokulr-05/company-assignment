@@ -1,0 +1,26 @@
+.recommend-modal-container {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.recommend-modal-img-container {
+  height: 150px;
+  width: 150px;
+}
+
+.recommend-modal-img {
+  height: 100%;
+  width: 100%;
+}
+
+.recommend-data-field-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

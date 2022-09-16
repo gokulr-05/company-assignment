@@ -14,12 +14,15 @@ import { authActions } from "../../slice/authSlice/authSlice";
 import { searchActions } from "../../slice/searchSlice/searchSlice";
 
 const Header = () => {
+  let overallShowsDataUrl =
+    "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/overallshowsdata.json";
   let recommendationListUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/recommendationList.json";
   let loginInfoUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/loginInfo.json";
   let usersDataUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/users.json";
+  let [overallShowsData, setOverallShowsData] = useState(null);
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let isLoggedIn = useSelector((state) => {
@@ -44,6 +47,8 @@ const Header = () => {
     return state.searchReducer.searchResultsArr;
   });
 
+  // console.log("overallShowsData=", overallShowsData);
+
   let logoutHandler = async function () {
     localStorage.removeItem("userId");
     localStorage.removeItem("userData");
@@ -67,6 +72,29 @@ const Header = () => {
   let onChangeHandler = function (e) {
     dispatch(searchActions.updateSearchInput({ searchInput: e.target.value }));
   };
+
+  useEffect(() => {
+    fetch(overallShowsDataUrl)
+      .then((res) => {
+        return res.json();
+      })
+      .then((val) => {
+        let [arr] = Object.values(val);
+
+        setOverallShowsData(arr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (overallShowsData !== null) {
+      dispatch(
+        authActions.addToTotalDataArr({ dataArr: [...overallShowsData] })
+      );
+    }
+  }, [overallShowsData]);
 
   // debouncing for search Input box
 
@@ -106,7 +134,7 @@ const Header = () => {
   }, [searchInput]);
 
   useEffect(() => {
-    console.log("UseEffect in Header js");
+    // console.log("UseEffect in Header js");
     let userId = localStorage.getItem("userId");
 
     if (userId) {

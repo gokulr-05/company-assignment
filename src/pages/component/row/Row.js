@@ -50,11 +50,11 @@ const Row = ({ title, url, isLarge }) => {
     fetching();
   }, []);
 
-  useEffect(() => {
-    if (movies.length > 0) {
-      dispatch(authActions.addToTotalDataArr({ dataArr: [...movies] }));
-    }
-  }, [movies]);
+  // useEffect(() => {
+  //   if (movies.length > 0) {
+  //     dispatch(authActions.addToTotalDataArr({ dataArr: [...movies] }));
+  //   }
+  // }, [movies]);
 
   return movies?.length > 0 ? (
     <div className="row-area ">

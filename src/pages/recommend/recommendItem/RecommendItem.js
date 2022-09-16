@@ -22,8 +22,8 @@ const RecommendItem = ({ data }) => {
   };
 
   return (
-    <div>
-      <div className="row g-5">
+    <div className="w-100 h-100">
+      <div className="row g-5 m-0 w-100">
         {data.map((val) => {
           let title = val.original_name
             ? val.original_name
@@ -44,16 +44,20 @@ const RecommendItem = ({ data }) => {
           return (
             <div
               key={shortid.generate()}
-              className="col-md-4 col-sm-6 col-12 pointer-cursor scaling"
+              className="col-md-4 col-sm-6 col-12 pointer-cursor scaling pad-1 "
               onClick={() => {
                 clickHandler(dataObj);
               }}
             >
-              <img
-                className={`w-100  ${!picBool ? "poster-path-img" : ""}`}
-                src={`${image_base_url}${pic}`}
-                alt="Poster Not Found"
-              />
+              <div className="w-100 h-100">
+                <img
+                  className={`w-100 image-item-perfect  ${
+                    !picBool ? "poster-path-img" : ""
+                  }`}
+                  src={`${image_base_url}${pic}`}
+                  alt="Poster Not Found"
+                />
+              </div>
             </div>
           );
         })}

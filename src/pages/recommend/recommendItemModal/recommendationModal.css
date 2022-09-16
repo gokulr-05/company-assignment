@@ -5,6 +5,8 @@
   align-items: center;
   padding: 20px;
   gap: 20px;
+  /* recently added  */
+  width: 100%;
 }
 
 .recommend-modal-img-container {

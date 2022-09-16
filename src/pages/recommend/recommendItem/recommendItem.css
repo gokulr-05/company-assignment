@@ -13,3 +13,41 @@
 .scaling:hover {
   transform: scale(1.1);
 }
+
+.image-item-perfect {
+  height: 100%;
+  width: 100% !important;
+}
+
+.pad-1 {
+}
+
+/* Extra extra large	xxl	≥1400px */
+@media (min-width: 1400px) {
+}
+
+/* Extra large	xl	≥1200px */
+@media (min-width: 1200px) and (max-width: 1399px) {
+}
+
+/* Large	lg	≥992px */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/* Medium	md	≥768px */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* Small	sm	≥576px */
+@media (min-width: 576px) and (max-width: 767px) {
+  /* .pad-1 {
+    padding: 0 50px !important;
+  } */
+}
+
+/* X-Small	None	<576px */
+@media (min-width: 0px) and (max-width: 575px) {
+  /* .pad-1 {
+    padding: 0 50px !important;
+  } */
+}

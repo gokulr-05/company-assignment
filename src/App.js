@@ -8,18 +8,6 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import SearchResults from "../src/pages/searchResults/SearchResults";
 const App = () => {
-  let fetchFunc = async () => {
-    let response = await fetch(
-      "https://api.themoviedb.org/3/movie/550?api_key=f93445a942bd04c00b774a5d9c724293"
-    );
-    let data = await response.json();
-    
-  };
-
-  useEffect(() => {
-    fetchFunc();
-  }, []);
-
   return (
     <div className="app-area ">
       <Header />

@@ -68,33 +68,41 @@ const Header = () => {
     dispatch(searchActions.updateSearchInput({ searchInput: e.target.value }));
   };
 
+  // debouncing for search Input box
+
   useEffect(() => {
-    if (totalDataArr.length > 0) {
-      if (searchInput?.trim().length > 0) {
-        let searchResults = totalDataArr.filter((val, ind, arr) => {
-          let title = val.original_name
-            ? val.original_name
-            : val.original_title
-            ? val.original_title
-            : val.title
-            ? val.title
-            : "";
+    let timer = setTimeout(() => {
+      if (totalDataArr.length > 0) {
+        if (searchInput?.trim().length > 0) {
+          let searchResults = totalDataArr.filter((val, ind, arr) => {
+            let title = val.original_name
+              ? val.original_name
+              : val.original_title
+              ? val.original_title
+              : val.title
+              ? val.title
+              : "";
 
-          return title
-            ?.trim()
-            ?.toLowerCase()
-            ?.includes(searchInput?.trim()?.toLowerCase());
-        });
+            return title
+              ?.trim()
+              ?.toLowerCase()
+              ?.includes(searchInput?.trim()?.toLowerCase());
+          });
 
-        dispatch(
-          searchActions.updateSearchResultArr({
-            searchResultsArr: searchResults,
-          })
-        );
-      } else if (searchInput?.trim().length === 0) {
-        dispatch(searchActions.emptySearchResultsArr());
+          dispatch(
+            searchActions.updateSearchResultArr({
+              searchResultsArr: searchResults,
+            })
+          );
+        } else if (searchInput?.trim().length === 0) {
+          dispatch(searchActions.emptySearchResultsArr());
+        }
       }
-    }
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [searchInput]);
 
   useEffect(() => {
@@ -107,54 +115,7 @@ const Header = () => {
       dispatch(authActions.login());
       dispatch(authActions.setLoginData({ loginData: userData }));
     }
-
-    // if (userId !== null) {
-    //   fetch(usersDataUrl)
-    //     .then((data) => {
-    //       return data.json();
-    //     })
-    //     .then((val) => {
-    //       if (val !== null) {
-    //         // let loggedInUserData;
-    //         let values1 = Object.values(val);
-
-    //         console.log("values1=", values1);
-
-    //         for (let obj of values1) {
-    //           if (obj?.userId === userId) {
-    //             console.log("obj=", obj);
-    //             // loggedInUserData = { obj };
-    //             // setLoggedInUserData(obj);
-    //             // console.log("loggedInUserData=", loggedInUserData);
-    //             dispatch(authActions.login());
-    //             dispatch(
-    //               authActions.setLoginData({ loginData: loggedInUserData })
-    //             );
-    //             break;
-    //           }
-    //         }
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
   }, []);
-  // useEffect(() => {
-  //   fetch(loginInfoUrl)
-  //     .then((data) => {
-  //       return data.json();
-  //     })
-  //     .then((val) => {
-  //       if (val !== null) {
-  //         dispatch(authActions.login());
-  //         dispatch(authActions.setLoginData({ loginData: val }));
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   useEffect(() => {
     if (isLoggedIn === true && logindata !== null) {

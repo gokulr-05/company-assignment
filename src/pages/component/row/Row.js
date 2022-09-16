@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import "./row.css";
 import { baseURL, image_base_url } from "../../../request";
 import Spinner from "../spinner/Spinner";
-import movieTrailer from "movie-trailer";
+
 import shortid from "shortid";
-import TrailerModal from "../modal/Modal";
-import NotFoundModal from "../notFoundModal/NotFoundModal";
+
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../../slice/authSlice/authSlice";
 import RecommendItemModal from "../../recommend/recommendItemModal/RecommendItemModal";
@@ -16,9 +15,7 @@ const Row = ({ title, url, isLarge }) => {
   });
 
   let dispatch = useDispatch();
-  let youtube_base_url = "https://www.youtube.com/embed/";
-  let [videoTitle, setVideoTitle] = useState("");
-  let [videoURL, setVideoURL] = useState("");
+
   let height = isLarge ? "large-height" : "small-height";
 
   let [dataVal, setDataVal] = useState(null);
@@ -49,12 +46,6 @@ const Row = ({ title, url, isLarge }) => {
     };
     fetching();
   }, []);
-
-  // useEffect(() => {
-  //   if (movies.length > 0) {
-  //     dispatch(authActions.addToTotalDataArr({ dataArr: [...movies] }));
-  //   }
-  // }, [movies]);
 
   return movies?.length > 0 ? (
     <div className="row-area ">
@@ -103,13 +94,6 @@ const Row = ({ title, url, isLarge }) => {
         handleClose={handleClose}
         data={dataVal}
       />
-
-      {/* <TrailerModal
-        src={`${youtube_base_url}${videoURL}`}
-        show={show}
-        handleClose={handleClose}
-      /> */}
-      {/* <NotFoundModal show1={show1} handleClose1={handleClose1} /> */}
     </div>
   ) : (
     <Spinner />

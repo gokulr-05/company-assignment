@@ -14,6 +14,8 @@ const Row = ({ title, url, isLarge }) => {
     return state.authReducer.totalDataArr;
   });
 
+  let [isError, setIsError] = useState(false);
+
   let dispatch = useDispatch();
 
   let height = isLarge ? "large-height" : "small-height";
@@ -44,8 +46,18 @@ const Row = ({ title, url, isLarge }) => {
 
       setMovies(data.results);
     };
-    fetching();
+
+    try {
+      fetching();
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
   }, []);
+
+  if (isError === true) {
+    return <h1 className="my-5">Something went wrong</h1>;
+  }
 
   return movies?.length > 0 ? (
     <div className="row-area ">

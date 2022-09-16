@@ -8,6 +8,7 @@ import { authActions } from "../../slice/authSlice/authSlice";
 const Customize = () => {
   let [firstExecUseEffect, setFirstExecUseEffect] = useState(false);
   let dispatch = useDispatch();
+  let [isError, setIsError] = useState(false);
 
   let logindata = useSelector((state, action) => {
     return state.authReducer.loginData;
@@ -44,6 +45,7 @@ const Customize = () => {
       let data = await res.json();
     } catch (err) {
       console.log(err);
+      setIsError(true);
     }
   };
 
@@ -70,12 +72,20 @@ const Customize = () => {
             }
 
             putRecommendationObjHandler(recommendationObj);
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsError(true);
           });
       }
     }
 
     setFirstExecUseEffect(true);
   }, [list, recommendationList]);
+
+  if (isError === true) {
+    <h1 className="my-5">something went wrong</h1>;
+  }
 
   if (isLoggedIn === false) {
     return (

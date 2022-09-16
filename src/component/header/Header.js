@@ -29,6 +29,8 @@ const Header = () => {
     return state.authReducer.isLoggedIn;
   });
 
+  let [isError, setIsError] = useState(false);
+
   let [loggedInUserData, setLoggedInUserData] = useState(null);
 
   let totalDataArr = useSelector((state, action) => {
@@ -47,21 +49,23 @@ const Header = () => {
     return state.searchReducer.searchResultsArr;
   });
 
-  // console.log("overallShowsData=", overallShowsData);
-
   let logoutHandler = async function () {
     localStorage.removeItem("userId");
     localStorage.removeItem("userData");
 
-    await fetch(loginInfoUrl, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(null),
-    });
+    try {
+      await fetch(loginInfoUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(null),
+      });
 
-    dispatch(authActions.logout());
-    alert("Logged out Successfully!!");
-    navigate("/home");
+      dispatch(authActions.logout());
+      alert("Logged out Successfully!!");
+      navigate("/home");
+    } catch (err) {
+      setIsError(true);
+    }
   };
 
   let submitHandler = function (e) {
@@ -85,6 +89,7 @@ const Header = () => {
       })
       .catch((err) => {
         console.log(err);
+        setIsError(true);
       });
   }, []);
 
@@ -172,9 +177,14 @@ const Header = () => {
         })
         .catch((err) => {
           console.log(err);
+          setIsError(true);
         });
     }
   }, [logindata, isLoggedIn]);
+
+  if (isError) {
+    return <h1 className="my-5">Something went wrong</h1>;
+  }
 
   return (
     <div className="header-bar-area">

@@ -15,6 +15,8 @@ const Login = () => {
     return state.authReducer.loginData;
   });
 
+  let [isError, setIsError] = useState(false);
+
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let userDataUrl =
@@ -76,13 +78,9 @@ const Login = () => {
         try {
           localStorage.setItem("userId", loginData.userId);
           localStorage.setItem("userData", JSON.stringify(loginData));
-          // let res = await fetch(loginInfoUrl, {
-          //   method: "PUT",
-          //   headers: { "Content-Type": "application/json" },
-          //   body: JSON.stringify(loginData),
-          // });
         } catch (err) {
           console.log(err);
+          setIsError(true);
         }
         dispatch(authActions.login());
         dispatch(authActions.setLoginData({ loginData: loginData }));
@@ -126,7 +124,12 @@ const Login = () => {
       return;
     }
 
-    fetchDataHandler();
+    try {
+      fetchDataHandler();
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
   };
 
   useEffect(() => {}, [isLoggedIn]);
@@ -134,6 +137,10 @@ const Login = () => {
   useEffect(() => {
     validationCheck();
   }, [email, password]);
+
+  if (isError === true) {
+    return <h1>Something Went Wrong</h1>;
+  }
 
   return (
     <div className="login-area">

@@ -8,6 +8,7 @@ const Banner = () => {
   let [showHeader, setShowHeader] = useState(false);
   let [image, setImage] = useState("");
   let [movies, setMovies] = useState("");
+  let [isError, setIsError] = useState(false);
 
   let overview =
     movies?.overview?.length > 250
@@ -24,8 +25,18 @@ const Banner = () => {
       setMovies(data.results[random_val]);
       setImage(`${image_base_url}${data.results[random_val].backdrop_path}`);
     };
-    fetching();
+
+    try {
+      fetching();
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
   }, []);
+
+  if (isError === true) {
+    return <h1 className="my-5">something went wrong</h1>;
+  }
 
   return (
     <div>

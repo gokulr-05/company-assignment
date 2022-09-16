@@ -17,6 +17,7 @@ let obj = {
 
 const RecommendItems = ({ name }) => {
   let [data, setData] = useState(null);
+  let [isError, setIsError] = useState(false);
 
   useEffect(() => {
     async function asyncFetch() {
@@ -27,11 +28,20 @@ const RecommendItems = ({ name }) => {
 
       setData(value1.results);
     }
-    asyncFetch();
+    try {
+      asyncFetch();
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
   }, []);
 
   if (data === null) {
     return <Spinner />;
+  }
+
+  if (isError === true) {
+    return <h1>Something went wrong</h1>;
   }
 
   return (

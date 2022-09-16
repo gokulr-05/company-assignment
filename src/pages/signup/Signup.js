@@ -6,6 +6,7 @@ import { validEmail, validPassword } from "../../validation/validation";
 
 const Signup = () => {
   let navigate = useNavigate();
+  let [isError, setIsError] = useState(false);
   let baseUrl = "https://company-assignment-9d5e6-default-rtdb.firebaseio.com";
   let usersDataUrl =
     "https://company-assignment-9d5e6-default-rtdb.firebaseio.com/users.json";
@@ -89,7 +90,12 @@ const Signup = () => {
 
       return data;
     };
-    return asyncFetchHandler();
+    try {
+      return asyncFetchHandler();
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
   };
 
   let uniqueUserIdGenerator = async function () {
@@ -98,10 +104,21 @@ const Signup = () => {
 
     while (idBool) {
       newId = shortid.generate();
-      idBool = await fetchIdHandler(newId);
+      try {
+        idBool = await fetchIdHandler(newId);
+      } catch (err) {
+        console.log(err);
+        setIsError(true);
+      }
     }
 
-    await postingData(newId);
+    try {
+      await postingData(newId);
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
+
     alert("registration successful");
     setName("");
     setEmail("");
@@ -142,14 +159,24 @@ const Signup = () => {
         }
       } catch (err) {
         console.log("err=", err);
+        setIsError(true);
       }
     }
-    asyncOperation();
+    try {
+      asyncOperation();
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+    }
   };
 
   useEffect(() => {
     validationCheck();
   }, [email, password, confirmPassword]);
+
+  if (isError === true) {
+    return <h1 className="my-5">Something went wrong</h1>;
+  }
 
   return (
     <div className="signup-area">
